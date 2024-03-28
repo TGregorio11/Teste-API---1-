@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "a8390841-83d0-4ec1-8950-ecbabb447c9d",
+		"name": "Teste ServeRest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33900113"
+	},
+	"item": [
+		{
+			"name": "Criar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Thiago Gregorio\",\r\n  \"email\": \"Thiago@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"nome\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Thiago Gregorio\");\r",
+							"});\r",
+							"pm.test(\"nome\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Tiago Gregorio\");\r",
+							"});\r",
+							"pm.test(\"password\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"teste\");\r",
+							"});\r",
+							"pm.test(\"password\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"teste123\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar usuario por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"email\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Thiago@qa.com.br\");\r",
+							"});\r",
+							"pm.test(\"email\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Tiago@qa.com.br\");\r",
+							"});\r",
+							"pm.test(\"id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"y9DHPA4pdM19UGOh\");\r",
+							"});\r",
+							"pm.test(\"id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"j9DHPA4pdM19UGOj\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/usuarios/y9DHPA4pdM19UGOh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"y9DHPA4pdM19UGOh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alteracao de email usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Fulano da Silva\",\r\n  \"email\": \"ciclano@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}usuarios/0uxuPY0cbmQhpEz1",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"0uxuPY0cbmQhpEz1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluido usuario com sucesso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"nome\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Neves Gregorio\");\r",
+							"});\r",
+							"pm.test(\"id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"6ZjVU7i091CMrd0t\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"nome\": \"Neves Gregorio\",\r\n            \"email\": \"Neves_@qa.com.br\",\r\n            \"password\": \"teste\",\r\n            \"administrador\": \"true\",\r\n            \"_id\": \"6ZjVU7i091CMrd0t\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}usuarios/6ZjVU7i091CMrd0t",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"6ZjVU7i091CMrd0t"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
